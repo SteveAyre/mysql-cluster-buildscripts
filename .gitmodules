@@ -1,0 +1,3 @@
+[submodule "wheezy"]
+	path = wheezy
+	url = git://github.com/SteveAyre/mysql-cluster-7.2.git
