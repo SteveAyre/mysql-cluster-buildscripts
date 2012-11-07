@@ -1,6 +1,8 @@
 [submodule "wheezy"]
 	path = wheezy
 	url = git://github.com/SteveAyre/mysql-cluster.git
+	update = --init
 [submodule "squeeze"]
 	path = squeeze
 	url = https://github.com/SteveAyre/mysql-cluster.git
+	update = --init
