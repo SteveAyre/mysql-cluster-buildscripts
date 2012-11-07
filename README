@@ -1,3 +1,9 @@
+First checkout the packaging for your intended target:
+	$ scripts/checkout [TARGET]
+
 To build packages:
-	$ scripts/build
+	$ scripts/build [TARGET]
+
+The default target is wheezy.
+A squeeze target is also available, which is a squeeze-backport of the wheezy package.
 

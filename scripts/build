@@ -1,7 +1,8 @@
 #!/bin/sh -e
 
-DIR=${1:-wheezy}
-PACKAGE_VERSION=`dpkg-parsechangelog -l${DIR}/debian/changelog | grep ^Version: | cut -d\  -f2`
+TARGET=${1:-wheezy}
+
+PACKAGE_VERSION=`dpkg-parsechangelog -l${TARGET}/debian/changelog | grep ^Version: | cut -d\  -f2`
 VERSION=`echo $PACKAGE_VERSION | cut -d- -f1 | sed -e s/+dfsg//`
 VERSION_MAJOR=`echo $VERSION | cut -d. -f1-2`
 TARBALL=mysql-cluster-${VERSION_MAJOR}_${VERSION}+dfsg.orig.tar.gz
@@ -23,12 +24,12 @@ fi
 scripts/clean
 
 # Download and extract source
-(cd ${DIR} && debian/rules get-orig-source)
+(cd ${TARGET} && debian/rules get-orig-source)
 ln -fs ${TARBALL} ${TARBALL_SYMLINK}
-tar -C ${DIR} --strip-components=1 -zxf ${TARBALL_SYMLINK}
+tar -C ${TARGET} --strip-components=1 -zxf ${TARBALL_SYMLINK}
 
 # Build package
-(cd ${DIR} && dpkg-buildpackage -uc -us -sa 2>&1 | tee ../build.log)
+(cd ${TARGET} && dpkg-buildpackage -uc -us -sa 2>&1 | tee ../build.log)
 
 # Cleanup and done
 echo Build complete

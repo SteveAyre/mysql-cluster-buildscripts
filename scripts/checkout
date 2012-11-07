@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+TARGET=${1:-wheezy}
+
+case "$TARGET" in
+	wheezy)
+		git clone git://github.com/SteveAyre/mysql-cluster.git wheezy
+		;;
+	squeeze)
+		git clone -b squeeze-backport git://github.com/SteveAyre/mysql-cluster.git squeeze
+		;;
+	*)
+		echo "Unknown target '${TARGET}'" >&2
+		exit 1
+esac
+

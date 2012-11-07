@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
-DIR=${1:-wheezy}
+TARGET=${1:-wheezy}
 
-(cd ${DIR} && fakeroot debian/rules clean)
+(cd ${TARGET} && fakeroot debian/rules clean)
 rm -rf *.deb *.changes *.dsc *.asc *.debian.tar.gz *.upload *.log
 
