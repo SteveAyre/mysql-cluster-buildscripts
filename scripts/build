@@ -21,7 +21,7 @@ if [ `which ccache` ]; then
 fi
 
 # Remove any files from old builds
-scripts/clean
+scripts/clean $TARGET
 
 # Download and extract source
 (cd ${TARGET} && debian/rules get-orig-source)
