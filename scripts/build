@@ -1,11 +1,11 @@
 #!/bin/sh -e
 
-PACKAGE_VERSION=`dpkg-parsechangelog -lwheezy/debian/changelog | grep ^Version: | cut -d\  -f2`
+DIR=${1:-wheezy}
+PACKAGE_VERSION=`dpkg-parsechangelog -l${DIR}/debian/changelog | grep ^Version: | cut -d\  -f2`
 VERSION=`echo $PACKAGE_VERSION | cut -d- -f1 | sed -e s/+dfsg//`
 VERSION_MAJOR=`echo $VERSION | cut -d. -f1-2`
 TARBALL=mysql-cluster-${VERSION_MAJOR}_${VERSION}+dfsg.orig.tar.gz
 TARBALL_SYMLINK=mysql-cluster-${VERSION_MAJOR}_${VERSION}.orig.tar.gz
-DIR=wheezy
 
 # Build test options
 # nocheck - skip testing (faster build)
