@@ -2,23 +2,23 @@
 
 TARGET=${1:-wheezy}
 
-PACKAGE_VERSION=`dpkg-parsechangelog -l${TARGET}/debian/changelog | grep ^Version: | cut -d\  -f2`
-VERSION=`echo $PACKAGE_VERSION | cut -d- -f1 | sed -e s/+dfsg//`
-VERSION_MAJOR=`echo $VERSION | cut -d. -f1-2`
-TARBALL=mysql-cluster-${VERSION_MAJOR}_${VERSION}+dfsg.orig.tar.gz
-TARBALL_SYMLINK=mysql-cluster-${VERSION_MAJOR}_${VERSION}.orig.tar.gz
+PACKAGE_SOURCE=$( grep ^Source: wheezy/debian/control | awk '{ print $2 }' )
+PACKAGE_VERSION=$( dpkg-parsechangelog -l${TARGET}/debian/changelog | grep ^Version: | awk '{ print $2 '} )
+VERSION=$( echo $PACKAGE_VERSION | cut -d- -f1 | sed -e s/+dfsg// )
+TARBALL=${PACKAGE_SOURCE}_${VERSION}+dfsg.orig.tar.gz
+TARBALL_SYMLINK=${PACKAGE_SOURCE}_${VERSION}.orig.tar.gz
 
 # Build test options
 # nocheck - skip testing (faster build)
 # fulltest - very long testsuite
 # leave both commented out for the normal test
-export DEB_BUILD_OPTIONS=nocheck
-#export DEB_BUILD_OPTIONS=fulltest
+# Can be specified at commandline as 2nd parameter
+export DEB_BUILD_OPTIONS=${2:-nocheck}
+#export DEB_BUILD_OPTIONS=${2:-fulltest}
 
-#add parallel parameter as number of cores +1 in order to make nuild faster 
-PROC_CNT=`cat /proc/cpuinfo |grep 'processor\s\+:' | wc -l`
-PROC_CNT=$(( $PROC_CNT + 1 ))
-export DEB_BUILD_OPTIONS="${DEB_BUILD_OPTIONS} parallel=$PROC_CNT"
+# Parallel build with cores+1 for faster build
+NUM_PROCESSORS=$(( $(nproc) + 1 ))
+export DEB_BUILD_OPTIONS="${DEB_BUILD_OPTIONS} parallel=$NUM_PROCESSORS"
 
 # Use ccache if available
 if [ `which ccache` ]; then
