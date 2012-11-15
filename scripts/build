@@ -2,7 +2,7 @@
 
 TARGET=${1:-wheezy}
 
-PACKAGE_SOURCE=$( grep ^Source: wheezy/debian/control | awk '{ print $2 }' )
+PACKAGE_SOURCE=$( grep ^Source: ${TARGET}/debian/control | awk '{ print $2 }' )
 PACKAGE_VERSION=$( dpkg-parsechangelog -l${TARGET}/debian/changelog | grep ^Version: | awk '{ print $2 '} )
 VERSION=$( echo $PACKAGE_VERSION | cut -d- -f1 | sed -e s/+dfsg// )
 TARBALL=${PACKAGE_SOURCE}_${VERSION}+dfsg.orig.tar.gz
