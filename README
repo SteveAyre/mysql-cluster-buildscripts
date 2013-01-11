@@ -4,11 +4,11 @@ First checkout the packaging for your intended target:
 To build packages:
 	$ scripts/build [TARGET]
 
-The default target is wheezy:
+The default target is your current distribution:
 	$ scripts/checkout
 	$ scripts/build
 
-A squeeze target is also available, which is a squeeze-backport of the wheezy package:
-	$ scripts/checkout squeeze
-	$ scripts/build squeeze
+Branches:
+	The master branch targets wheezy.
+	The squeeze-backport branch targets squeeze.
 

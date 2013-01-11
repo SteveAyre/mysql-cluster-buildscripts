@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-TARGET=${1:-wheezy}
+TARGET=${1:-$(lsb_release -cs)}
 
 PACKAGE_SOURCE=$( grep ^Source: ${TARGET}/debian/control | awk '{ print $2 }' )
 PACKAGE_VERSION=$( dpkg-parsechangelog -l${TARGET}/debian/changelog | grep ^Version: | awk '{ print $2 '} )

@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-TARGET=${1:-wheezy}
+TARGET=${1:-$(lsb_release -cs)}
 
 case "$TARGET" in
 	wheezy)
