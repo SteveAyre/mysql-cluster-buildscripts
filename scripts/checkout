@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 TARGET=${1:-$(lsb_release -cs)}
-BRANCH=${1:-master}
+BRANCH=${2:-master}
 
 git clone https://github.com/SteveAyre/mysql-cluster.git -b $BRANCH $TARGET
 
